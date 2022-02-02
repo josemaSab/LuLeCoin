@@ -1,6 +1,6 @@
 ﻿namespace LuLeCoin.Models
 {
-    public interface IBlock
+    public interface IBlockbak
     {
         byte[] Data { get; set; }
         byte[] Hash { get; set; }

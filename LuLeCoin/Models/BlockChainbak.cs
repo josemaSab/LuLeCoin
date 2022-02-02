@@ -2,16 +2,16 @@
 
 namespace LuLeCoin.Models
 {
-    public class BlockChainbak : IEnumerable<IBlock>
+    public class BlockChainbak : IEnumerable<IBlockbak>
     {
         //PROPERTIES
         
-        private List<IBlock> _items = new List<IBlock>();
+        private List<IBlockbak> _items = new List<IBlockbak>();
         public byte[] Difficulty { get; set; }
        
         //CONTRUCTORS
 
-        public BlockChainbak(byte[] difficulty, IBlock genesisBlock)
+        public BlockChainbak(byte[] difficulty, IBlockbak genesisBlock)
         {
             Difficulty = difficulty;
             genesisBlock.Hash = genesisBlock.MineHash(difficulty);
@@ -25,7 +25,7 @@ namespace LuLeCoin.Models
 
         public int Count => Items.Count;
 
-        public void Add(IBlock item)
+        public void Add(IBlockbak item)
         {
             if(Items.LastOrDefault() != null)
             {
@@ -35,7 +35,7 @@ namespace LuLeCoin.Models
             Items.Add(item);
         }
         
-        public IEnumerator<IBlock> GetEnumerator()
+        public IEnumerator<IBlockbak> GetEnumerator()
         {
             return Items.GetEnumerator();
         }
@@ -47,13 +47,13 @@ namespace LuLeCoin.Models
 
         //GETTERS AND SETTERS
 
-        public List<IBlock> Items
+        public List<IBlockbak> Items
         {
             get => _items;
             set => _items = value;
         }
 
-        public IBlock this[int index]
+        public IBlockbak this[int index]
         {
             get => Items[index];
             set => Items[index] = value;

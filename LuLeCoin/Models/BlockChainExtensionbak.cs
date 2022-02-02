@@ -2,9 +2,9 @@
 
 namespace LuLeCoin.Models
 {
-    public static  class BlockChainExtension
+    public static  class BlockChainExtensionbak
     {
-        public static byte[] GenerateHash(this IBlock block) 
+        public static byte[] GenerateHash(this IBlockbak block) 
         {
             using (SHA512 sha = new SHA512Managed())
             using (MemoryStream st = new MemoryStream())
@@ -18,7 +18,7 @@ namespace LuLeCoin.Models
                 return sha.ComputeHash(starr);
             }
         }
-        public static byte[] MineHash(this IBlock block, byte[] difficulty) 
+        public static byte[] MineHash(this IBlockbak block, byte[] difficulty) 
         {
             if (difficulty == null) throw new ArgumentException(nameof(difficulty));
             byte[] hash = new byte[0];
@@ -30,18 +30,18 @@ namespace LuLeCoin.Models
             }
             return hash;
         }
-        public static bool IsValid(this IBlock block) 
+        public static bool IsValid(this IBlockbak block) 
         {
             var bk = block.GenerateHash();
             return block.Hash.SequenceEqual(bk);
         }
-        public static bool isValidPrevBlock(this IBlock block, IBlock prevBlock) 
+        public static bool isValidPrevBlock(this IBlockbak block, IBlockbak prevBlock) 
         {
             if (prevBlock == null) throw new ArgumentException(nameof(prevBlock));
             var prev = prevBlock.GenerateHash();
             return prevBlock.IsValid() && block.PrevHash.SequenceEqual(prev);
         }
-        public static bool IsValid(this IEnumerable<IBlock> items) 
+        public static bool IsValid(this IEnumerable<IBlockbak> items) 
         {
             var enumerable = items.ToList();
             return enumerable.Zip(enumerable.Skip(1), Tuple.Create).All(block => block.Item2.IsValid() && block.Item2.isValidPrevBlock(block.Item1));
