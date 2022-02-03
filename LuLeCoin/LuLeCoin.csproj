@@ -13,9 +13,8 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Modelos\Consenso\" />
-    <Folder Include="Modelos\Minado\" />
-    <Folder Include="Modelos\P2P\" />
+    <Folder Include="Modelos\Bloques\" />
+    <Folder Include="Modelos\BlockChain\" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,3 @@
-using LuLeCoin.Modelos.Bloques;
-using LuLeCoin.Models;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,8 +18,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // Inizialize lulecoin
-string st = "00044458547785447885";
-Console.WriteLine(st.Take(3));
+
 //------------------------------
 app.UseHttpsRedirection();
 
