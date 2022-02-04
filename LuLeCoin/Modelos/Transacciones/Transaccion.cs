@@ -15,11 +15,12 @@ namespace LuLeCoin.Modelos.Transacciones
     * */
     public class Transaccion
     {
-        public byte[] Hash { get; set; }
+        public byte[] Hash { get; }
         public byte[] Emisor { get; set; }
         public byte[] Destinatario { get; set; }
         public byte[] Firma { get; set; }
         public double Cantidad { get; set; }
+        public byte[] Datos { get; set; }
         public long TimeStamp { get; set; }
 
         //CONTRUCTORES
@@ -28,12 +29,13 @@ namespace LuLeCoin.Modelos.Transacciones
         {
         }
 
-        public Transaccion(byte[] emisor, byte[] destinatario, byte[] firma, double cantidad)
+        public Transaccion(byte[] emisor, byte[] destinatario, byte[] firma, double cantidad, byte[] datos)
         {
             Emisor = emisor;
             Destinatario = destinatario;
             Firma = firma;
             Cantidad = cantidad;
+            Datos = datos;
             TimeStamp = CalculosFecha.calculaMilisegundos(CalculosFecha.ahora);
             Hash = calculaHashTransaccion();
         }
@@ -57,6 +59,7 @@ namespace LuLeCoin.Modelos.Transacciones
             sb.Append(CalculosByteString.arrayBytesToString(this.Destinatario));
             sb.Append(CalculosByteString.arrayBytesToString(this.Firma));
             sb.Append(CalculosByteString.arrayBytesToString(BitConverter.GetBytes(this.Cantidad)));
+            sb.Append(CalculosByteString.arrayBytesToString(this.Datos));
             sb.Append(CalculosByteString.arrayBytesToString(BitConverter.GetBytes(this.TimeStamp)));
             contenido = Encoding.ASCII.GetBytes(sb.ToString());
             return contenido;
@@ -72,6 +75,20 @@ namespace LuLeCoin.Modelos.Transacciones
         }
 
         /**
+         * Metodo que verifica si el hash de la transacción es valido
+         */
+        public bool esValidoHash()
+        {
+            string hash = HashearSHA256.pasarArrayByteString(this.Hash);
+            string hashCalculado = HashearSHA256.pasarArrayByteString(calculaHashTransaccion());
+            if (hash.Equals(hashCalculado))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /**
          * Metodo que muestra una cadena de caracteres con los datos de la transacción.
          */
         public override string ToString()
@@ -83,12 +100,9 @@ namespace LuLeCoin.Modelos.Transacciones
             sb.Append($"Emisor: {HashearSHA256.pasarArrayByteString(this.Emisor)}\n");
             sb.Append($"Destinatario: {HashearSHA256.pasarArrayByteString(this.Destinatario)}\n");
             sb.Append($"Cantidad: {this.Cantidad}\n");
+            sb.Append($"Datos: {HashearSHA256.pasarArrayByteString(this.Datos)}\n");
             sb.Append($"Fecha Transacción: {this.TimeStamp}\n");
             return sb.ToString();
         }
-
-        //TODO Validar hash 
-
-        //TODO Validar transaccion
     }
 }
