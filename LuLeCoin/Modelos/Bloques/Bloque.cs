@@ -44,7 +44,7 @@ namespace LuLeCoin.Modelos.Bloques
          */
         private byte[] getContenidoBloque()
         {
-            byte[] contenido = new byte[0];
+            byte[] contenido;
             StringBuilder sb = new StringBuilder();
             sb.Append(CalculosByteString.arrayBytesToString(this.PrevHash));
             sb.Append(CalculosByteString.arrayBytesToString(BitConverter.GetBytes(this.Dificultad)));
