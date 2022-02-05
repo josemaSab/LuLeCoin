@@ -23,8 +23,8 @@ namespace LuLeCoin.Modelos.Bloques
             PrevHash = prevHash;
             Dificultad = dificultad;
             Nonce = nonce;
-            TimeStampCreacion = CalculosFecha.calculaMilisegundos(DateTime.Now);
-            TimeStampMinado = CalculosFecha.calculaMilisegundos(DateTime.Now);
+            TimeStampCreacion = CalculosFecha.calculaMilisegundos(DateTime.UtcNow);
+            TimeStampMinado = CalculosFecha.calculaMilisegundos(DateTime.UtcNow);
             Transacciones = transacciones;
             RaizArbolMerkle = calculaRaizArbolMerkle();
             Hash = calculaHash();
@@ -33,7 +33,7 @@ namespace LuLeCoin.Modelos.Bloques
         /**
          * Metodo que calcula el hash del bloque a partir del contenido en array de bytes
          */
-        private byte[] calculaHash()
+        public byte[] calculaHash()
         {
             byte[] hash = HashearSHA256.calculoHash(getContenidoBloque());
             return hash;
@@ -93,10 +93,10 @@ namespace LuLeCoin.Modelos.Bloques
          * Comprueba que el bloque pasado por parametro es valido.
          * Comparando el hash que trae el bloque y el hash del calculo del contenido del mismo
          */
-        public bool esValido(Bloque bloque)
+        public bool esValido()
         {
-            byte[] hashCalculado = bloque.calculaHash();
-            if(bloque.Hash == hashCalculado)
+            byte[] hashCalculado = this.calculaHash();
+            if(this.Hash == hashCalculado)
             {
                 return true;
             }

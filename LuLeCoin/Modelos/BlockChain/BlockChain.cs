@@ -1,10 +1,7 @@
-﻿using LuLeCoin.Modelos.Bloques;
-
-namespace LuLeCoin.Modelos.BlockChain
+﻿namespace LuLeCoin.Modelos.BlockChain
 {
     public class BlockChain
     {
-        public List<Bloque> CadenaBloques = new List<Bloque>();
         public int Dificultad { get; set; }
         public int TransaccionesBloque { get; set; }
         public long TiempoMinadoBloque { get; set; }
@@ -39,6 +36,67 @@ namespace LuLeCoin.Modelos.BlockChain
             {
                 this.Dificultad -= 1;            
             }
-        } 
+        }
+
+        /**
+         * Metodo que añade un bloque a la blockchain
+         */
+        private  bool addBloque(Bloque bloque)
+        {
+            if (encuentraCeros(bloque))
+            {
+                BlockChainExtension.CadenaBloques.Add(bloque);
+                //TODO Propagar por la red el bloque minado
+
+                return true;
+            }
+            
+            return false;
+        }
+
+        /**
+         * Metodo que realiza la prueba de trabajo para minar el bloque
+         */
+        public Bloque minarBloque(Bloque bloque)
+        {
+            byte[] hash = new byte[0];
+            if (bloque != null && bloque.esValido())
+            {
+                while (!encuentraCeros(bloque))
+                {
+                    bloque.Nonce++;
+                    bloque.TimeStampMinado = CalculosFecha.calculaMilisegundos(DateTime.UtcNow);
+                }
+                Console.WriteLine("EUREKA!!!! Bloque minado.");
+                Console.WriteLine(bloque.ToString());
+                addBloque(bloque);
+            }
+            return null;
+        }
+
+        /**
+         * Metodo que busca en un array de longitud igual a la dificultad
+         * y comprueba que todos sus valores sean 0. Si es correcto devuleve true
+         * Si no es correcto devuelve false
+         */
+        public bool encuentraCeros(Bloque bloque)
+        {
+            int contador = 0;
+            byte[] ceros = new byte[this.Dificultad];
+            byte[] hashBloque = bloque.calculaHash();
+            for (int i = 0; i < this.Dificultad; i++)
+            {
+                ceros[i] = hashBloque[i];
+                if(ceros[i] == 0)
+                {
+                    contador++;
+                }
+            }
+            if(contador == this.Dificultad)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
