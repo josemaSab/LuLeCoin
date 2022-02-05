@@ -88,5 +88,20 @@ namespace LuLeCoin.Modelos.Bloques
 
             return colaHashes.Dequeue();
         }
+
+        /*
+         * Comprueba que el bloque pasado por parametro es valido.
+         * Comparando el hash que trae el bloque y el hash del calculo del contenido del mismo
+         */
+        public bool esValido(Bloque bloque)
+        {
+            byte[] hashCalculado = bloque.calculaHash();
+            if(bloque.Hash == hashCalculado)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }
