@@ -24,5 +24,21 @@ namespace LuLeCoin.Modelos.BlockChain
         }
 
         //METODOS
+
+        public void calculoDificultad(long tiempoCreacion, long tiempoMinado)
+        {
+            long time= tiempoMinado-tiempoCreacion;
+            //Si el tiempo en minar un bloque es menor que el tiempo previsto de minado
+            //Se aumenta la dificultad de minado
+            if(time < this.TiempoMinadoBloque)
+            {
+                this.Dificultad += 1;
+            }
+            //Si el tiempo en minar un bloque es mayor se disminuye la dificultad de minado
+            else if(time > this.TiempoMinadoBloque)
+            {
+                this.Dificultad -= 1;            
+            }
+        } 
     }
 }
