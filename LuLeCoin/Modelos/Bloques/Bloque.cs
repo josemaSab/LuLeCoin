@@ -11,14 +11,14 @@ namespace LuLeCoin.Modelos.Bloques
         public byte[] RaizArbolMerkle { get; set; }
         public long TimeStampCreacion { get; set; }
         public long TimeStampMinado { get; set; }
-        public HashSet<Transaccion> Transacciones { get; set; }
+        public List<Transaccion> Transacciones { get; set; }
 
         //CONSTRUCTORES
 
         /**
          * Constructor con parametros
          */
-        public Bloque(byte[] prevHash, int dificultad, long nonce, HashSet<Transaccion> transacciones)
+        public Bloque(byte[] prevHash, int dificultad, long nonce, List<Transaccion> transacciones)
         {
             PrevHash = prevHash;
             Dificultad = dificultad;
@@ -101,6 +101,21 @@ namespace LuLeCoin.Modelos.Bloques
                 return true;
             }
             return false;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("INFORMACION DE BLOQUE\n");
+            sb.Append("---------------------\n");
+            sb.Append($"Hash: {CalculosByteString.arrayBytesToString(this.Hash)}\n");
+            sb.Append($"Hash Anterior: {CalculosByteString.arrayBytesToString(this.PrevHash)}\n");
+            sb.Append($"Dificultad: {CalculosByteString.arrayBytesToString(BitConverter.GetBytes(this.Dificultad))}\n");
+            sb.Append($"Nonce: {CalculosByteString.arrayBytesToString(BitConverter.GetBytes(this.Nonce))}\n");
+            sb.Append($"Raiz Arbol de Merkle: {CalculosByteString.arrayBytesToString(this.RaizArbolMerkle)}\n");
+            sb.Append($"Fecha Creación Bloque: {CalculosFecha.calculaFecha(this.TimeStampCreacion)}\n");
+            sb.Append($"Fecha Minado Bloque: {CalculosFecha.calculaFecha(this.TimeStampMinado)}\n");
+            return sb.ToString();
         }
 
     }

@@ -2,7 +2,7 @@
 {
     public class PoolTransacciones
     {
-        HashSet<Transaccion> poolTransacciones = new HashSet<Transaccion>();
+        List<Transaccion> poolTransacciones = new List<Transaccion>();
         
         //METODOS
 

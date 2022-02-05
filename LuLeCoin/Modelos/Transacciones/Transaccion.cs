@@ -94,8 +94,8 @@ namespace LuLeCoin.Modelos.Transacciones
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("TRANSACCION\n");
-            sb.Append("-----------\n");
+            sb.Append("INFORMACION DE TRANSACCION\n");
+            sb.Append("--------------------------\n");
             sb.Append($"Hash: {HashearSHA256.pasarArrayByteString(this.Hash)}\n");
             sb.Append($"Emisor: {HashearSHA256.pasarArrayByteString(this.Emisor)}\n");
             sb.Append($"Destinatario: {HashearSHA256.pasarArrayByteString(this.Destinatario)}\n");
