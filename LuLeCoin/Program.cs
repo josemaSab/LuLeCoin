@@ -1,5 +1,14 @@
 
+using LuLeCoin.RedP2P;
+using LuLeCoin.RedP2P.Servicios;
+
 var builder = WebApplication.CreateBuilder(args);
+// Inizialize lulecoin
+Nodo nodo1 = new Nodo("192.168.1.20", 8080);
+Nodo nodo2 = new Nodo("192.168.1.30", 8080);
+NodoService.addNodo(nodo1);
+NodoService.addNodo(nodo2);
+//------------------------------
 
 // Add services to the container.
 
@@ -17,9 +26,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Inizialize lulecoin
-
-//------------------------------
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -27,5 +33,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
 
 
