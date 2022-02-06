@@ -1,15 +1,15 @@
 ﻿namespace LuLeCoin.Modelos.Transacciones
 {
-    public class PoolTransacciones
+    public static class PoolTransaccionesServices
     {
-        List<Transaccion> poolTransacciones = new List<Transaccion>();
+        public static List<Transaccion> poolTransacciones = new List<Transaccion>();
         
         //METODOS
 
         /**
          * Metodo que elimina una transacción del pool de transacciones
          */
-        public void eliminaTransaccion(Transaccion transaccion)
+        public static void eliminaTransaccion(Transaccion transaccion)
         {
             if (poolTransacciones.Contains(transaccion))
             {
@@ -22,7 +22,7 @@
         /**
          * Metodo que elimina una transacción del pool de transacciones a partir de un hash
          */
-        public void eliminaTransaccion(string hashTransaccion)
+        public static void eliminaTransaccion(string hashTransaccion)
         {
             foreach(Transaccion transaccion in poolTransacciones)
             {
@@ -38,7 +38,7 @@
         /**
          * Metodo que añade la transacción al pool si no existe
          */
-        public void addTransaccion(Transaccion transaccion)
+        public static void addTransaccion(Transaccion transaccion)
         {
             if (!poolTransacciones.Contains(transaccion))
             {

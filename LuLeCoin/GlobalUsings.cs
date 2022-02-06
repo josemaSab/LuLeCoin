@@ -4,3 +4,8 @@ global using System.Text;
 global using LuLeCoin.Calculos;
 global using LuLeCoin.Encriptacion;
 global using LuLeCoin.Modelos.Bloques;
+global using LuLeCoin.Modelos;
+global using LuLeCoin.Modelos.BlockChain;
+global using LuLeCoin.Modelos.Transacciones;
+global using LuLeCoin.RedP2P;
+global using LuLeCoin.RedP2P.Servicios;

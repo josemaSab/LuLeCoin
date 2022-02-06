@@ -41,17 +41,13 @@
         /**
          * Metodo que añade un bloque a la blockchain
          */
-        private  bool addBloque(Bloque bloque)
+        private bool addBloque(Bloque bloque)
         {
-            if (encuentraCeros(bloque))
-            {
-                BlockChainExtension.CadenaBloques.Add(bloque);
-                //TODO Propagar por la red el bloque minado
-
-                return true;
-            }
             
-            return false;
+            BlockChainExtensionService.addBloqueBlockChain(bloque);
+            //TODO Propagar por la red el bloque minado
+
+            return true;
         }
 
         /**
@@ -59,8 +55,8 @@
          */
         public Bloque minarBloque(Bloque bloque)
         {
-            byte[] hash = new byte[0];
-            if (bloque != null && bloque.esValido())
+            Console.WriteLine("Minando Bloque....");
+            if (bloque != null)
             {
                 while (!encuentraCeros(bloque))
                 {
@@ -71,6 +67,7 @@
                 Console.WriteLine(bloque.ToString());
                 addBloque(bloque);
             }
+            Console.WriteLine("El bloque esta vacio.");
             return null;
         }
 
@@ -82,12 +79,15 @@
         public bool encuentraCeros(Bloque bloque)
         {
             int contador = 0;
-            byte[] ceros = new byte[this.Dificultad];
+            char[] ceros = new char[this.Dificultad];
             byte[] hashBloque = bloque.calculaHash();
+            string hash = HashearSHA256.pasarArrayByteString(hashBloque);
+            char[] hashCharArray = hash.ToCharArray();
+            //Console.WriteLine($"Prueba de trabajo: {hash}");
             for (int i = 0; i < this.Dificultad; i++)
             {
-                ceros[i] = hashBloque[i];
-                if(ceros[i] == 0)
+                ceros[i] = hashCharArray[i];
+                if(ceros[i] == '0')
                 {
                     contador++;
                 }
@@ -98,5 +98,6 @@
             }
             return false;
         }
+
     }
 }
