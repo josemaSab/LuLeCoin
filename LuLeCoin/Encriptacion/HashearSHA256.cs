@@ -1,5 +1,8 @@
 ﻿namespace LuLeCoin.Encriptacion
 {
+    /**
+     * Clase que realiza los calculos para hashear un string
+     */
     public static class HashearSHA256
     {
         public static SHA256 sha256 = SHA256.Create();
@@ -8,11 +11,15 @@
         /**
          * Metodo que calcula el hash de un array de bytes
         */
-        public static byte[] calculoHash(byte[] array)
+        public static string calculoHash(string hash)
         {
+            //convertimos el string hash pasado por parametro a array de bytes
+            byte[] hashArray = CalculosByteString.stringToArrayBytes(hash);
             byte[] resultado = new byte[0];
-            resultado = sha256.ComputeHash(array);
-            return resultado;
+            //hasheamos el array de bytes
+            resultado = sha256.ComputeHash(hashArray);
+            //Devolvemos el resultado en formato de string
+            return pasarArrayByteString(resultado);
         }
 
         /**

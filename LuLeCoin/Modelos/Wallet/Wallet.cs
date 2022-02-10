@@ -1,14 +1,17 @@
 ﻿namespace LuLeCoin.Modelos
 {
+    /**
+     * Clase Blockchain.Se definen los atributos y metodos
+     */
     public class Wallet
     {
-        public byte[] ClavePublica { get; }
-        public byte[] ClavePrivada { get; }
+        public string ClavePublica { get; }
+        public string ClavePrivada { get; }
         public double Saldo { get; set; }
 
 
         //CONSTRUCTORES
-        public Wallet(byte[] clavePrivada)
+        public Wallet(string clavePrivada)
         {
             //Primero hasheamos la clave privada que sera secreta
             ClavePrivada = HashearSHA256.calculoHash(clavePrivada);
@@ -28,7 +31,7 @@
             StringBuilder sb = new StringBuilder();
             sb.Append("WALLET CREADA\n");
             sb.Append("-------------\n");
-            sb.Append($"Direccion wallet: {HashearSHA256.pasarArrayByteString(this.ClavePublica)}");
+            sb.Append($"Direccion wallet: {this.ClavePublica}");
             return sb.ToString();
         }
     }

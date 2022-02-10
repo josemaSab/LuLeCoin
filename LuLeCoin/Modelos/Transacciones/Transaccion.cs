@@ -15,12 +15,12 @@ namespace LuLeCoin.Modelos.Transacciones
     * */
     public class Transaccion
     {
-        public byte[] Hash { get; }
-        public byte[] Emisor { get; set; }
-        public byte[] Destinatario { get; set; }
-        public byte[] Firma { get; set; }
+        public string Hash { get; }
+        public string Emisor { get; set; }
+        public string Destinatario { get; set; }
+        public string Firma { get; set; }
         public double Cantidad { get; set; }
-        public byte[] Datos { get; set; }
+        public string Datos { get; set; }
         public long TimeStamp { get; set; }
 
         //CONTRUCTORES
@@ -29,7 +29,7 @@ namespace LuLeCoin.Modelos.Transacciones
         {
         }
 
-        public Transaccion(byte[] emisor, byte[] destinatario, byte[] firma, double cantidad, byte[] datos)
+        public Transaccion(string emisor, string destinatario, string firma, double cantidad, string datos)
         {
             Emisor = emisor;
             Destinatario = destinatario;
@@ -42,11 +42,10 @@ namespace LuLeCoin.Modelos.Transacciones
 
         //METODOS
         /**
-         * Metodo que transforma el objeto transacción en un array de bytes
+         * Metodo que obtiene todos los datos de la transaccion para tratarla
          * */
-        public byte[] getContenidoTransaccion()
+        public string getContenidoTransaccion()
         {
-            byte[] contenido;
             StringBuilder sb = new StringBuilder();
 
             
@@ -55,21 +54,21 @@ namespace LuLeCoin.Modelos.Transacciones
                 return null;
             }
             //Pasamos a string los datos de la transaccion
-            sb.Append(CalculosByteString.arrayBytesToString(this.Emisor));
-            sb.Append(CalculosByteString.arrayBytesToString(this.Destinatario));
-            sb.Append(CalculosByteString.arrayBytesToString(this.Firma));
-            sb.Append(CalculosByteString.arrayBytesToString(BitConverter.GetBytes(this.Cantidad)));
-            sb.Append(CalculosByteString.arrayBytesToString(this.Datos));
-            sb.Append(CalculosByteString.arrayBytesToString(BitConverter.GetBytes(this.TimeStamp)));
-            contenido = Encoding.ASCII.GetBytes(sb.ToString());
-            return contenido;
+            sb.Append(this.Emisor);
+            sb.Append(this.Destinatario);
+            sb.Append(this.Firma);
+            sb.Append(this.Cantidad);
+            sb.Append(this.Datos);
+            sb.Append(this.TimeStamp);
+            
+            return sb.ToString();
         }
 
         /**
          * Calcula el hash de la transacción y pasa a ser el identificador hash
          */
 
-        public byte[] calculaHashTransaccion()
+        public string calculaHashTransaccion()
         {
             return HashearSHA256.calculoHash(getContenidoTransaccion());          
         }
@@ -79,8 +78,8 @@ namespace LuLeCoin.Modelos.Transacciones
          */
         public bool esValidoHash()
         {
-            string hash = HashearSHA256.pasarArrayByteString(this.Hash);
-            string hashCalculado = HashearSHA256.pasarArrayByteString(calculaHashTransaccion());
+            string hash = this.Hash;
+            string hashCalculado = calculaHashTransaccion();
             if (hash.Equals(hashCalculado))
             {
                 return true;
@@ -96,11 +95,11 @@ namespace LuLeCoin.Modelos.Transacciones
             StringBuilder sb = new StringBuilder();
             sb.Append("INFORMACION DE TRANSACCION\n");
             sb.Append("--------------------------\n");
-            sb.Append($"Hash: {HashearSHA256.pasarArrayByteString(this.Hash)}\n");
-            sb.Append($"Emisor: {HashearSHA256.pasarArrayByteString(this.Emisor)}\n");
-            sb.Append($"Destinatario: {HashearSHA256.pasarArrayByteString(this.Destinatario)}\n");
+            sb.Append($"Hash: {this.Hash}\n");
+            sb.Append($"Emisor: {this.Emisor}\n");
+            sb.Append($"Destinatario: {this.Destinatario}\n");
             sb.Append($"Cantidad: {this.Cantidad}\n");
-            sb.Append($"Datos: {HashearSHA256.pasarArrayByteString(this.Datos)}\n");
+            sb.Append($"Datos: {this.Datos}\n");
             sb.Append($"Fecha Transacción: {this.TimeStamp}\n");
             return sb.ToString();
         }

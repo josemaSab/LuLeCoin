@@ -1,5 +1,8 @@
 ﻿namespace LuLeCoin.Calculos
 {
+    /**
+     * Clase que realiza el calculo para fechas
+     */
     public static class CalculosFecha
     {
         public static DateTime ahora = DateTime.UtcNow;

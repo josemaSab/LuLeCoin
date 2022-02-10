@@ -1,5 +1,8 @@
 ﻿namespace LuLeCoin.RedP2P.Servicios
 {
+    /**
+     * Servicio qeu gestiona los nodos de la red P2P
+     */
     public static class NodoService
     {
         public static List<Nodo> ListaNodos =new List<Nodo>();

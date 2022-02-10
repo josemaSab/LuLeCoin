@@ -1,5 +1,8 @@
 ﻿namespace LuLeCoin.Modelos.BlockChain
 {
+    /**
+     * Clase Blockchain. Se definen los atributos y metodos
+     */
     public class BlockChain
     {
         public int Dificultad { get; set; }
@@ -66,6 +69,7 @@
                 Console.WriteLine("EUREKA!!!! Bloque minado.");
                 Console.WriteLine(bloque.ToString());
                 addBloque(bloque);
+                return bloque;
             }
             Console.WriteLine("El bloque esta vacio.");
             return null;
@@ -80,9 +84,8 @@
         {
             int contador = 0;
             char[] ceros = new char[this.Dificultad];
-            byte[] hashBloque = bloque.calculaHash();
-            string hash = HashearSHA256.pasarArrayByteString(hashBloque);
-            char[] hashCharArray = hash.ToCharArray();
+            string hashBloque = bloque.calculaHash();
+            char[] hashCharArray = hashBloque.ToCharArray();
             //Console.WriteLine($"Prueba de trabajo: {hash}");
             for (int i = 0; i < this.Dificultad; i++)
             {
