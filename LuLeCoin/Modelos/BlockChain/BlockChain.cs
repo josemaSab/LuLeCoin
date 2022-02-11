@@ -48,7 +48,6 @@
         {
             
             BlockChainExtensionService.addBloqueBlockChain(bloque);
-            //TODO Propagar por la red el bloque minado
 
             return true;
         }
@@ -68,7 +67,18 @@
                 }
                 Console.WriteLine("EUREKA!!!! Bloque minado.");
                 Console.WriteLine(bloque.ToString());
+
+
+                //SERVICIO DE NOTIFICACION A LA RED P2P
+                //Comunicar a los nodos que hemos minado un bloque
+                //si los nodos dan el devuleven true añade el bloque al blockchain
                 addBloque(bloque);
+                //si devuleven false hace peticion de la blockchain mas larga para descargarla
+                
+                //Console.WriteLine("Ya existe un bloque minado por otro nodo mas reciente.");
+                //Console.WriteLine("Se procede a la descargar del bloque correcto.");
+
+                //----------------//
                 return bloque;
             }
             Console.WriteLine("El bloque esta vacio.");
@@ -97,6 +107,7 @@
             }
             if(contador == this.Dificultad)
             {
+                Console.WriteLine($"Prueba de trabajo: {hashBloque}");
                 return true;
             }
             return false;

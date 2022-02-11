@@ -34,7 +34,7 @@ namespace LuLeCoin
             transacciones.Add(transaccion1);
 
             //CREACION DE LA BLOCKCHAIN
-            BlockChain blockChainLule = new BlockChain(6, 2000, 60000, true);
+            BlockChain blockChainLule = new BlockChain(8, 2000, 60000, true);
 
             //CREACION DEL BLOQUE GENESIS
             string hashAnterior = "Soy el comienzo";

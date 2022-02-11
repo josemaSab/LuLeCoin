@@ -32,7 +32,10 @@ namespace LuLeCoin.RedP2P.Servicios
             return numeroBloques;
         }
 
-        public bool addBloque(Bloque bloque)
+        /**
+         * Metodo que añade un bloque al fichero de la blockchain
+         */
+        public int addBloque(Bloque bloque)
         {
             bool resultado = false;
             if (bloque != null)
@@ -42,12 +45,12 @@ namespace LuLeCoin.RedP2P.Servicios
                 try
                 {
                     bf.Serialize(this.StreamFile, bloque);
-                    return true;
+                    return 1;
                 }
                 catch (Exception ex)
                 {
                     Console.Error.WriteLine("Error al serializar el bloque: " + ex.Message);
-                    return false;
+                    return -1;
                 }
                 finally
                 {
@@ -55,8 +58,20 @@ namespace LuLeCoin.RedP2P.Servicios
                 }
                 
             }
-            return resultado;
+            return 0;
+        }
+        /*
+        public Bloque findBloque(string hash)
+        {
+            Bloque bloque = null;
+            if(hash != null)
+            {
+                this.StreamFile = new FileStream(this.PathFileBlockChain, FileMode.Open, FileAccess.Read);
+
+            }
+            return bloque;
         }
 
+        */
     }
 }
