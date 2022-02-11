@@ -64,6 +64,8 @@
                 {
                     bloque.Nonce++;
                     bloque.TimeStampMinado = CalculosFecha.calculaMilisegundos(DateTime.UtcNow);
+                    //Thread.Sleep(1);--> con la parada de un milisegundo igualamos la capacidad computacional de todos los
+                    //equipos de la red. Sin que uno sea mas poderoso que otro.
                 }
                 Console.WriteLine("EUREKA!!!! Bloque minado.");
                 Console.WriteLine(bloque.ToString());
